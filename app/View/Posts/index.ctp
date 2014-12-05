@@ -26,15 +26,15 @@
   <!--============================== content =================================-->
   
   <div id="content" class="content-extra"><div class="ic">More Website Templates @ TemplateMonster.com. November19, 2012!</div>
-  <div class="row-1">
+  <div class="row">
     <div class="container">
       <div class="row">
         <ul class="thumbnails thumbnails-1">
           <?php foreach ($posts as $post): ?>
-          <li class="span2">
+          <li class="span3">
             <div class="thumbnail thumbnail-1">
               <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?>
-              <?php echo $this->Html->image("page1-img1.jpg", array("alt" => "alternative_text"));?>
+              <?php echo $this->Html->image("slide-1.jpg", array("alt" => "alternative_text"));?>
               <section> <strong>At vero eos et accusamus et iusto </strong>
                 <p>Odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
                 <?php echo $this->Html->link('Read More', array('action' => 'view', $post['Post']['id']), array('class' => 'btn btn-1'));?> </section>

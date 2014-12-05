@@ -18,6 +18,8 @@
                         
                     </ul>
                 </div>
+                <h2>Comments:</h2>
+                <?php echo $this->Facebook->comments(array('width' => '620', 'height' => '500')); ?>
             </article>
             <article class="span4">
                 <h3 class="extra">Search</h3>

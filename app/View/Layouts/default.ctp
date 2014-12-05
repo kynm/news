@@ -49,6 +49,7 @@
         echo $this->Html->script('touchTouch.jquery');
         echo $this->Html->script('bootstrap');
     ?>
+    <?php echo $this->Facebook->html(); ?>
 </head>
 <body>
     <div id="container">
@@ -66,4 +67,5 @@
     </div>
     <?php echo $this->element('sql_dump'); ?>
 </body>
+<?php echo $this->Facebook->init(); ?>
 </html>
