@@ -12,7 +12,7 @@
                             <div class="name-author">by <a href="#">Admin</a></div>
                             <a href="#" class="comments">11 comments</a>
                             <div class="clear"></div>
-                            <img alt="" src="img/page4-img1.jpg">
+                            <?php echo $this->Html->image('/img/upload/'. trim($post['Post']['image']), array("alt" => "", 'data-src' => '/upload'));?>
                             <p><?php echo $post['Post']['body']; ?></p>
                         </li>
                         
