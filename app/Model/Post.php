@@ -6,8 +6,8 @@ class Post extends AppModel {
             'rule' => 'notEmpty'
         ),
 		'image' => array(
-			'unique' => array(
-		        'rule' => array('isUnique'),
+			'notEmpty' => array(
+		        'rule' => array('notEmpty'),
 		        'message' => 'body is required'
       		),
 		    'check_image' => array(

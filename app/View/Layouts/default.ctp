@@ -12,15 +12,13 @@
                         <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active"><a href="index.html">About</a></li>
-                                <li class="sub-menu"><a href="index-1.html">Services</a>
                                 <?php foreach ($groups as $key => $value):?>
-                                <li class="sub-menu"><?php echo $this->Html->link($key, array('controller' => 'posts', 'action' => 'index', $key));?>
-                                    <ul>
+                                <li class="sub-menu"><?php echo $this->Html->link($value, array('controller' => 'posts', 'action' => 'index', $key));?>
+<!--                                     <ul>
                                         <?php foreach ($value as $category): ?>
                                         <li><a href="#"><?php echo $this->Html->link($category, array('controller' => 'posts', 'action' => 'index',$key, $category));?></li>
                                         <?php endforeach;?>
-                                    </ul>
+                                    </ul> -->
                                 </li>
                                 <?php endforeach;?>
                             </ul>
@@ -65,7 +63,6 @@
             </ul>
         </div>
     </div>
-    <?php echo $this->element('sql_dump'); ?>
 </body>
 <?php echo $this->Facebook->init(); ?>
 </html>

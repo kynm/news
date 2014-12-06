@@ -10,10 +10,21 @@
                             <h3><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></h3>
                             <?php echo $post['Post']['created']; ?>
                             <div class="name-author">by <a href="#">Admin</a></div>
-                            <a href="#" class="comments">11 comments</a>
+                            <a href="#" class="comments"><?php echo $post['Post']['view']?> lượt xem</a>
+                            <?php echo $this->Facebook->like(); ?>
+                            <?php echo $this->Facebook->share(Router::url( $this->here, true ));?>
                             <div class="clear"></div>
-                            <?php echo $this->Html->image('/img/upload/'. trim($post['Post']['image']), array("alt" => "", 'data-src' => '/upload'));?>
-                            <p><?php echo $post['Post']['body']; ?></p>
+                            <?php echo $this->Html->image('/upload/'. trim($post['Post']['image']), array("alt" => "", 'data-src' => '/upload'));?>
+                            <div class="wrapper">
+                                <ul class="list extra2 list-pad ">
+                                <?php foreach ($allPostGroup as $post) :?>
+                                    <li><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
+                                <?php endforeach;?>
+                                </ul>
+                            </div>
+                            <div>
+                                <p><?php echo $post['Post']['body']; ?></p>
+                            </div>
                         </li>
                         
                     </ul>
@@ -29,41 +40,52 @@
                         <a href="#" onClick="document.getElementById('search').submit()" class="btn btn-1">Search</a> 
                     </div>
                 </form>
-                    <h3>Categories</h3>
-                    <ul class="list extra extra1">
-                        <li><a href="#">Ut wisi enim ad minim veniam</a></li>
-                        <li><a href="#">Quis nostrud exerci tation ullamcorper</a></li>
-                        <li><a href="#">Suscipit lobortis nisl ut aliquip</a></li>
-                        <li><a href="#">Commodo consequat</a></li>
-                        <li><a href="#">Duis autem vel eum iriure dolor in hendrerit</a></li>
-                        <li><a href="#">Vulputate velit esse molestie consequat</a></li>
-                        <li><a href="#">Fel illum dolore eu feugiat nulla</a></li>
-                        <li><a href="#">Facilisis at vero eros et accumsan iusto</a></li>
-                        <li><a href="#">Odio dignissim qui blandit</a></li>
-                        <li><a href="#">Praesent luptatum zzril delenit augue</a></li>
+                    <h3><p> <font color="black">Bài Viết Mới</font></p></h3>
+                    <ul class="list extra extra1 media-list">
+                    <?php foreach ($postNews as $post) :?>
+                        <li class="media">
+                        <?php echo $this->Html->image('/upload/'. trim($post['Post']['image']), array("alt" => "", 'data-src' => '/upload', 'width'=>'100px', 'height' => '100px'));?>
+                        <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
+                    <?php endforeach;?>
                     </ul>
-                    <h3>Archive</h3>
+                    <h3><p><font color="black">Bài viết nổi bật</font></p></h3>
                     <div class="wrapper">
-                        <ul class="list extra2 list-pad ">
-                            <li><a href="#">November 2012</a></li>
-                            <li><a href="#">October 2012</a></li>
-                            <li><a href="#">September 2012</a></li>
-                            <li><a href="#">August 2012</a></li>
-                            <li><a href="#">July 2012</a></li>
-                            <li><a href="#">June 2012</a></li>
+                        <ul class="list extra extra1 media-list">
+                        <?php foreach ($postHots as $post) :?>
+                            <li class="media">
+                            <?php echo $this->Html->image('/upload/'. trim($post['Post']['image']), array("alt" => "", 'data-src' => '/upload', 'width'=>'100px', 'height' => '100px'));?>
+                            <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
+                        <?php endforeach;?>
                         </ul>
-                        <ul class="list extra2">
-                            <li><a href="#">May 2012</a></li>
-                            <li><a href="#">April 2012</a></li>
-                            <li><a href="#">March 2012</a></li>
-                            <li><a href="#">February 2012</a></li>
-                            <li><a href="#">January 2012</a></li>
-                            <li><a href="#">December 2011</a></li>
-                        </ul>
-                        
                     </div>
                 </article>
             </div>
         </div>
     </div>
+</div>
+<script type="text/javascript">
+function hide_float_right() {
+    var content = document.getElementById('float_content_right');
+    var hide = document.getElementById('hide_float_right');
+    if (content.style.display == "none")
+    {content.style.display = "block"; hide.innerHTML = '<a href="javascript:hide_float_right()">Tắt Quảng Cáo [X]</a>'; }
+        else { content.style.display = "none"; hide.innerHTML = '<a href="javascript:hide_float_right()">Xem Quảng Cáo</a>';
+    }
+    }
+</script>
+<style>
+.float-ck { position: fixed; bottom: 0px; z-index: 9000}
+* html .float-ck {position:absolute;bottom:auto;top:expression(eval (document.documentElement.scrollTop+document.docum entElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0))) ;}
+#float_content_right {border: 1px solid #01AEF0;}
+#hide_float_right {text-align:right; font-size: 11px;}
+#hide_float_right a {background: #01AEF0; padding: 2px 4px; color: #FFF;}
+</style>
+<div class="float-ck" style="right: 0px" >
+<div id="hide_float_right">
+<a href="javascript:hide_float_right()">Tắt Quảng Cáo [X]</a></div>
+<div id="float_content_right">
+ 
+<a href="http://tuhocphp.com/" target="_blank"><?php echo $this->Html->image("slide-1.jpg", array("alt" => ""));?></a>
+ 
+</div>
 </div>
