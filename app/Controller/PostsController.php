@@ -1,7 +1,10 @@
 <?php
 class PostsController extends AppController {
-    public $helpers = array('Html', 'Form', 'Paginator');
-
+    public $helpers = array('Html', 'Form', 'Paginator', 'Cache');
+    public $cacheAction = array(
+         'view'  => array('callbacks' => true, 'duration' => '+1 hours'),
+         'index'  => array('callbacks' => true, 'duration' => '+1 hours'),
+    );
     public $paginate = array(
         'Post' => array('limit' => 30,
             'order' => array(

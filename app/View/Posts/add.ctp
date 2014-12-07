@@ -1,3 +1,4 @@
+<?php echo $this->element('menu')?>
 <h1>Add post</h1>
 <div class="bg-content">
 <div id="content" class="content-extra">
@@ -22,3 +23,4 @@
 </form>
 </div>
 </div>
+<?php echo $this->Html->script('ckeditor/ckeditor.js');?>

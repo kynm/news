@@ -1,3 +1,4 @@
+<?php echo $this->element('menu')?>
 <?php echo $this->Form->create('Post', array('enctype' => 'multipart/form-data'));?>
 <div class="form-group">
     <?php echo $this->Form->input('title');?>
@@ -7,3 +8,4 @@
 </div>
 <button type="submit" class="btn btn-default">Submit</button>
 </form>
+<?php echo $this->Html->script('ckeditor/ckeditor.js');?>
