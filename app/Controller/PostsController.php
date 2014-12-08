@@ -1,6 +1,6 @@
 <?php
 class PostsController extends AppController {
-    public $helpers = array('Html', 'Form', 'Paginator', 'Cache');
+    public $helpers = array('Html', 'Form', 'Paginator', 'Cache', 'Ck');
     public $cacheAction = array(
          'view'  => array('callbacks' => true, 'duration' => '+1 hours'),
          'index'  => array('callbacks' => true, 'duration' => '+1 hours'),
@@ -20,15 +20,13 @@ class PostsController extends AppController {
         'Paginator',
     );
     public function add($check = null) {
+        $this->layout = 'posts';
         if ($check != 'k54a2') {
             $this->redirect(array('action' => 'index'));
         }
         $groups = Configure::read('groups');
         $this->set('groups', $groups);
         if ($this->request->is('post')) {
-            $file = $this->data['Post']['image'];
-            move_uploaded_file($file['tmp_name'], WWW_ROOT . 'upload/' . $file['name']);
-            $this->request->data['Post']['image'] = trim($file['name']);
             if ($this->Post->save($this->request->data)) {
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -39,6 +37,7 @@ class PostsController extends AppController {
     }
 
     public function edit($id = null, $check = null) {
+        $this->layout = 'posts';
         $this->Post->id = $id;
         if ($check != 'k54a2') {
             $this->redirect(array('action' => 'index'));
@@ -48,7 +47,7 @@ class PostsController extends AppController {
         } else {
             if ($this->Post->save($this->request->data)) {
                 $this->Session->setFlash('Your post has been updated.');
-                $this->redirect(array('action' => 'index'));
+                //$this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Unable to update your post.');
             }
@@ -83,6 +82,31 @@ class PostsController extends AppController {
         );
         $data = $this->Paginator->paginate('Post');
         $this->set('posts', $data);
+    }
+    public function category($flag = 'none') {
+        $order = array();
+        $conditions = array();
+        if ($flag == 'none') {
+            $order['Post.created'] = 'asc';
+        } else {
+            $conditions['Post.group'] = $flag;
+        }
+        if ($this->request->is('post')) {
+            $dataSearch = $this->request->data['Post']['search'];
+            $conditions['OR'] = array("Post.title LIKE '%$dataSearch%'","Post.body LIKE '%$dataSearch%'", "Post.group LIKE '%$dataSearch%'");
+
+        }
+        $this->Paginator->settings = array(
+            'conditions' => $conditions,
+            'limit' => 30,
+            'order' => $order
+        );
+        $data = $this->Paginator->paginate('Post');
+        $this->set('posts', $data);
+        $postNews = $this->Post->find('all', array('limit' => 10));
+        $postHots = $this->Post->find('all', array('order' => 'view', 'limit' => 10));
+        $this->set('postNews', $postNews);
+        $this->set('postHots', $postHots);
     }
     public function view($id) {
         $this->Post->id = $id;

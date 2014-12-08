@@ -1,37 +1,39 @@
 <?php echo $this->element('menu')?>
 <div class="bg-content">
     <!--============================== content =================================-->
-    <div id="content">
+    <div id="content"><div class="ic">More Website Templates @ TemplateMonster.com. November19, 2012!</div>
     <div class="container">
         <div class="row">
             <article class="span8">
+                <?php if (count($posts)): ?>
                 <div class="inner-1">
                     <ul class="list-blog">
+                        <?php foreach ($posts as $post): ?>
                         <li>
                             <h3><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></h3>
-                            <?php echo $post['Post']['created']; ?>
+                            <time datetime="<?php echo $post['Post']['created'];?>" class="date-1"><?php echo $post['Post']['created'];?></time>
                             <div class="name-author">by <a href="#">Admin</a></div>
-                            <a href="#" class="comments"><?php echo $post['Post']['view']?> lượt xem</a>
-                            <?php echo $this->Facebook->like(); ?>
-                            <?php echo $this->Facebook->share(Router::url( $this->here, true ));?>
+                            <a href="#" class="comments"><?php echo $post['Post']['view'];?> lượt xem</a>
                             <div class="clear"></div>
                             <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px;">
-                            <div class="wrapper">
-                                <ul class="list extra2 list-pad ">
-                                <?php foreach ($allPostGroup as $post) :?>
-                                    <li><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
-                                <?php endforeach;?>
-                                </ul>
-                            </div>
-                            <div>
-                                <p><?php echo $post['Post']['body']; ?></p>
-                            </div>
+                            <p><?php echo substr($post['Post']['body'],0, 300);?>.....</p>
+                            <?php echo $this->Html->link('Read More', array('action' => 'view', $post['Post']['id']));?>
                         </li>
-                        
+                    <?php endforeach; ?>
                     </ul>
-                                    <h2>Comments:</h2>
-                <?php echo $this->Facebook->comments(array('width' => '620', 'height' => '500')); ?>
                 </div>
+                <div class="pagination pagination-large">
+                    <ul class="pagination">
+                        <?php
+                            echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+                            echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1));
+                            echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));
+                        ?>
+                    </ul>
+                </div>
+            <?php else:?>
+            no result
+            <?php endif;?>
             </article>
             <article class="span4">
                 <h3 class="extra">Search</h3>
@@ -39,7 +41,6 @@
                     <?php echo $this->Form->input('search', array('type'=>'text','label'=>false,'error' => false));?>
                 <button type="submit" class="btn btn-default">Search</button>
                 </form>
-                    <?php echo $this->Facebook->likebox('https://www.facebook.com/blogtinhyeutrongta', array('width' => 370))?>
                     <h3><p> <font color="black">Bài Viết Mới</font></p></h3>
                     <ul class="list extra extra1 media-list">
                     <?php foreach ($postNews as $post) :?>

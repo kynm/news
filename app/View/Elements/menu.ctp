@@ -10,7 +10,7 @@
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
                                 <?php foreach ($groups as $key => $value):?>
-                                <li class="sub-menu"><?php echo $this->Html->link($value, array('controller' => 'posts', 'action' => 'index', $key));?>
+                                <li class="sub-menu"><?php echo $this->Html->link($value, array('controller' => 'posts', 'action' => 'category', $key));?>
 <!--                                     <ul>
                                         <?php foreach ($value as $category): ?>
                                         <li><a href="#"><?php echo $this->Html->link($category, array('controller' => 'posts', 'action' => 'index',$key, $category));?></li>

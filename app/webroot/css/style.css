@@ -1272,3 +1272,29 @@ footer {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.wrap {
+  /* force the div to properly contain the floated images: */
+  position:relative;
+  float:left;
+  clear:none;
+  overflow:hidden;
+} 
+.wrap img {
+  position:relative;
+  z-index:1;
+}
+.wrap .desc {
+  display:block;
+  position:absolute;
+  width:100%;
+  top:50%;
+  left:0;
+  z-index:2;
+  color: white; 
+   font: bold 15px/15px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px;
+}

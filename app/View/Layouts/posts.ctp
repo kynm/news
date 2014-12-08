@@ -2,16 +2,20 @@
 <html>
 <head>
     <?php
+        //echo $this->fetch('meta');
+        //echo $this->fetch('css');
+        //echo $this->fetch('script');
         echo $this->Html->css('bootstrap');
         echo $this->Html->css('responsive');
         echo $this->Html->css('style');
         echo $this->Html->script('jquery');
+        echo $this->Html->script('ckeditor/ckeditor.js');
         echo $this->Html->script('bootstrap');
     ?>
     <?php echo $this->Facebook->html(); ?>
 </head>
 <body>
-    <div id="bg-content">
+    <div id="container">
         <div id="content">
             <?php echo $this->fetch('content'); ?>
         </div>

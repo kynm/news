@@ -10,10 +10,10 @@ class Post extends AppModel {
 		        'rule' => array('notEmpty'),
 		        'message' => 'body is required'
       		),
-		    'check_image' => array(
-		        'rule' => 'check_image',
-		       	'message' => 'file is image',
-		    ),
+		    // 'check_image' => array(
+		    //     'rule' => 'check_image',
+		    //    	'message' => 'file is image',
+		    // ),
 		),
     );
 
