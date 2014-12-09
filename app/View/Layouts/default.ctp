@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <?php
         echo $this->Html->css('bootstrap');
         echo $this->Html->css('responsive');

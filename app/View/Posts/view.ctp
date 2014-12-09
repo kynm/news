@@ -16,13 +16,15 @@
                             <?php echo $this->Facebook->share(Router::url( $this->here, true ));?>
                             <div class="clear"></div>
                             <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px;">
-                            <div class="wrapper">
-                                <ul class="list extra2 list-pad ">
-                                <?php foreach ($allPostGroup as $post) :?>
-                                    <li><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
-                                <?php endforeach;?>
-                                </ul>
-                            </div>
+                    <div class="wrapper">
+                        <ul class="list extra extra1 media-list">
+                        <?php foreach ($allPostGroup as $post) :?>
+                            <div class="media">
+                                <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 20px; 'height:20px;">
+                            <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></div>
+                        <?php endforeach;?>
+                        </ul>
+                    </div>
                             <div>
                                 <p><?php echo $post['Post']['body']; ?></p>
                             </div>

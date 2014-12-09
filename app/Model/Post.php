@@ -1,6 +1,6 @@
 <?php
 class Post extends AppModel {
-
+	public $useTable = 'wp_posts';
 	public $validate = array(
         'title' => array(
             'rule' => 'notEmpty'

@@ -1,16 +1,11 @@
 <?php
+App::uses('AppController', 'Controller');
 class PostsController extends AppController {
-    public $helpers = array('Html', 'Form', 'Paginator', 'Cache', 'Ck');
+    public $helpers = array('Html', 'Form', 'Paginator', 'Ck');
+    //public $helpers = array('Html', 'Form', 'Paginator', 'Cache', 'Ck');
     public $cacheAction = array(
          'view'  => array('callbacks' => true, 'duration' => '+1 hours'),
          'index'  => array('callbacks' => true, 'duration' => '+1 hours'),
-    );
-    public $paginate = array(
-        'Post' => array('limit' => 30,
-            'order' => array(
-                'Post.title' => 'asc'
-            )
-        ),
     );
 
     public $components = array(
@@ -39,15 +34,12 @@ class PostsController extends AppController {
     public function edit($id = null, $check = null) {
         $this->layout = 'posts';
         $this->Post->id = $id;
-        if ($check != 'k54a2') {
-            $this->redirect(array('action' => 'index'));
-        }
         if ($this->request->is('get')) {
             $this->request->data = $this->Post->read();
         } else {
             if ($this->Post->save($this->request->data)) {
                 $this->Session->setFlash('Your post has been updated.');
-                //$this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Unable to update your post.');
             }
@@ -67,14 +59,11 @@ class PostsController extends AppController {
         }
     }
 
-    public function index($flag = 'none') {
+    public function index() {
         $order = array();
         $conditions = array();
-        if ($flag == 'none') {
-            $order['Post.created'] = 'asc';
-        } else {
-            $conditions['Post.group'] = $flag;
-        }
+        $order['Post.created'] = 'asc';
+        $conditions['Post.post_status'] = 'publish';
         $this->Paginator->settings = array(
             'conditions' => $conditions,
             'limit' => 30,
@@ -96,6 +85,7 @@ class PostsController extends AppController {
             $conditions['OR'] = array("Post.title LIKE '%$dataSearch%'","Post.body LIKE '%$dataSearch%'", "Post.group LIKE '%$dataSearch%'");
 
         }
+        //die(var_dump($conditions));
         $this->Paginator->settings = array(
             'conditions' => $conditions,
             'limit' => 30,

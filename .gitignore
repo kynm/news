@@ -6,6 +6,7 @@
 /app/webroot/upoad
 /build
 /dist
+/lib/Cake
 /tags
 *.mo
 
