@@ -33,8 +33,19 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
 	public $helpers = array('Facebook.Facebook');
-
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login',
+                'home'
+            ),
+        )
+    );
     public function beforeFilter() {
+    	$this->set('user', $this->Auth->user());
     	Configure::load('common.php');
     	$groups = Configure::read('groups');
     	$this->set('groups', $groups);

@@ -11,7 +11,17 @@
                             <h3><?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></h3>
                             <?php echo $post['Post']['created']; ?>
                             <div class="name-author">by <a href="#">Admin</a></div>
-                            <a href="#" class="comments"><?php echo $post['Post']['view']?> lượt xem</a>
+                            <a href="#" class="comments">
+
+                                <?php if($this->Session->read('Auth.User.id') == $post['Post']['post_author']): ?>
+                                    <?php echo $this->Form->postLink(
+                                    'Delete',
+                                    array('action' => 'delete', $post['Post']['id']),
+                                    array('confirm' => 'Are you sure?'));
+                                    ?>
+                                    <?php echo $this->Html->link('Edit', array('action' => 'edit', $post['Post']['id']));?>
+                                <?php endif?>
+                                <?php echo $post['Post']['view']?> lượt xem</a>
                             <?php echo $this->Facebook->like(); ?>
                             <?php echo $this->Facebook->share(Router::url( $this->here, true ));?>
                             <div class="clear"></div>

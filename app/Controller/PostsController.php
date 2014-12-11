@@ -3,10 +3,10 @@ App::uses('AppController', 'Controller');
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Paginator', 'Ck');
     //public $helpers = array('Html', 'Form', 'Paginator', 'Cache', 'Ck');
-    public $cacheAction = array(
-         'view'  => array('callbacks' => true, 'duration' => '+1 hours'),
-         'index'  => array('callbacks' => true, 'duration' => '+1 hours'),
-    );
+    // public $cacheAction = array(
+    //      'view'  => array('callbacks' => true, 'duration' => '+1 hours'),
+    //      'index'  => array('callbacks' => true, 'duration' => '+1 hours'),
+    // );
 
     public $components = array(
         'FacebookComponent' => array(
@@ -14,11 +14,12 @@ class PostsController extends AppController {
         ),
         'Paginator',
     );
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'view','category');
+    }
     public function add($check = null) {
         $this->layout = 'posts';
-        if ($check != 'k54a2') {
-            $this->redirect(array('action' => 'index'));
-        }
         $groups = Configure::read('groups');
         $this->set('groups', $groups);
         if ($this->request->is('post')) {
@@ -31,7 +32,7 @@ class PostsController extends AppController {
         }
     }
 
-    public function edit($id = null, $check = null) {
+    public function edit($id = null) {
         $this->layout = 'posts';
         $this->Post->id = $id;
         if ($this->request->is('get')) {
@@ -46,10 +47,7 @@ class PostsController extends AppController {
         }
     }
 
-    public function delete($id, $check = null) {
-        if ($check != 'k54a2') {
-            $this->redirect(array('action' => 'index'));
-        }
+    public function delete($id) {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
         }
