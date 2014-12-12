@@ -9,7 +9,7 @@
                         <?php foreach ($posts as $post): ?>
                         <li class="span3">
                             <div class="wrap">
-                                <img class="displayImage" src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>">
+                            <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImage'));?>
                                 <h3 class="desc">
                                 <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?>
                                 </h3>
@@ -63,7 +63,7 @@
                     <ul class="list extra extra1 media-list">
                         <?php foreach ($postNews as $post) :?>
                         <li class="media">
-                            <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" class="displayImageSmall">
+                            <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                         <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                         <?php endforeach;?>
                     </ul>
@@ -72,7 +72,7 @@
                         <ul class="list extra extra1 media-list">
                             <?php foreach ($postHots as $post) :?>
                             <li class="media">
-                                <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" class="displayImageSmall">
+                                <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                             <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                             <?php endforeach;?>
                         </ul>

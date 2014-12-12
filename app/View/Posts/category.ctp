@@ -24,7 +24,7 @@
                                 <?php endif?>
                                 <?php echo $post['Post']['view'];?> lượt xem</a>
                             <div class="clear"></div>
-                            <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px;">
+                            <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => ''));?>
                             <p><?php echo substr($post['Post']['body'],0, 300);?>.....</p>
                             <?php echo $this->Html->link('Read More', array('action' => 'view', $post['Post']['id']));?>
                         </li>
@@ -54,7 +54,7 @@
                     <ul class="list extra extra1 media-list">
                     <?php foreach ($postNews as $post) :?>
                         <li class="media">
-                        <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 50px; 'height:50px;">
+                        <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                         <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                     <?php endforeach;?>
                     </ul>
@@ -63,7 +63,7 @@
                         <ul class="list extra extra1 media-list">
                         <?php foreach ($postHots as $post) :?>
                             <li class="media">
-                                <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 50px; 'height:50px;">
+                                <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                             <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                         <?php endforeach;?>
                         </ul>

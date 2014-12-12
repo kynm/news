@@ -23,11 +23,31 @@ class PostsController extends AppController {
         $groups = Configure::read('groups');
         $this->set('groups', $groups);
         if ($this->request->is('post')) {
-            if ($this->Post->save($this->request->data)) {
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->set('errors', $this->Post->validationErrors);
-                $this->Session->setFlash('Unable to add your post.');
+            if (!empty($this->request->data)) {
+                //Check if image has been uploaded
+                if (!empty($this->request->data['Post']['image']['name'])) {
+                    $file = $this->request->data['Post']['image']; //put the data into a var for easy use
+                    $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+                    $arr_ext = array('jpg', 'jpeg', 'gif', 'png'); //set allowed extensions
+                    //only process if the extension is valid
+                    if(in_array($ext, $arr_ext)) {
+                        //do the actual uploading of the file. First arg is the tmp name, second arg is 
+                        //where we are putting it
+                        move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/upload/posts/' . $file['name']);
+
+                        //prepare the filename for database entry
+                        unset($this->request->data['Post']['image']);
+                        $this->request->data['Post']['post_author'] = $this->Auth->user()['id'];
+                        $this->request->data['Post']['image'] = '/img/upload/posts/' . $file['name'];
+    
+                    }
+                }
+                //now do the save
+                if($this->Post->save($this->request->data)) {
+                    $this->redirect(array('action' => 'index'));
+                } else {
+                    $this->set('errors', $this->Post->validationErrors);
+                }
             }
         }
     }
@@ -35,9 +55,21 @@ class PostsController extends AppController {
     public function edit($id = null) {
         $this->layout = 'posts';
         $this->Post->id = $id;
-        if ($this->request->is('get')) {
-            $this->request->data = $this->Post->read();
-        } else {
+        $post = $this->Post->read();
+        if (!$post) {
+            $this->redirect(array('action' => 'index'));
+        }
+        $this->request->data = $post;
+        $this->set('post', $post);
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+            if ($data['Post']['image']['name']) {
+                $file = $this->request->data['Post']['image'];
+                move_uploaded_file($file['tmp_name'], $this->webroo. 'img/upload/post/' . $file['name']);
+                $this->request->data['Post']['image'] = $this->webroo. 'img/upload/post/' . $file['name']; 
+            } else {
+                $this->request->data['Post']['image'] = $post['Post']['image'];
+            }
             if ($this->Post->save($this->request->data)) {
                 $this->Session->setFlash('Your post has been updated.');
                 $this->redirect(array('action' => 'index'));
@@ -61,8 +93,8 @@ class PostsController extends AppController {
         $groups = Configure::read('groups');
         $order = array();
         $conditions = array();
-        $order['Post.created'] = 'asc';
-        $conditions['Post.post_status'] = 'publish';
+        $order['Post.created'] = 'desc';
+        //$conditions['Post.post_status'] = 'publish';
         $this->Paginator->settings = array(
             'conditions' => $conditions,
             'limit' => 6,
@@ -70,14 +102,14 @@ class PostsController extends AppController {
         );
         $allDataView = array();
         foreach ($groups as $key => $value) {
-            $$key = $this->Post->find('all', array('conditions' => array('group' => $key), 'limit' => 6));
+            $$key = $this->Post->find('all', array('conditions' => array('group' => $key), 'limit' => 6, 'order' => array('created' => 'desc')));
             $allDataView[$key] = $$key;
         }
         $this->set('allDataView', $allDataView);
         $data = $this->Paginator->paginate('Post');
         $this->set('posts', $data);
-        $postNews = $this->Post->find('all', array('limit' => 10));
-        $postHots = $this->Post->find('all', array('order' => 'view', 'limit' => 10));
+        $postNews = $this->Post->find('all', array('order' => array('created' => 'desc'), 'limit' => 10));
+        $postHots = $this->Post->find('all', array('order' => array('view' => 'desc'), 'limit' => 10));
         $this->set('postNews', $postNews);
         $this->set('postHots', $postHots);
     }
@@ -102,8 +134,8 @@ class PostsController extends AppController {
         );
         $data = $this->Paginator->paginate('Post');
         $this->set('posts', $data);
-        $postNews = $this->Post->find('all', array('limit' => 10));
-        $postHots = $this->Post->find('all', array('order' => 'view', 'limit' => 10));
+        $postNews = $this->Post->find('all', array('order' => array('created' => 'desc'), 'limit' => 10));
+        $postHots = $this->Post->find('all', array(array('view' => 'desc'), 'limit' => 10));
         $this->set('postNews', $postNews);
         $this->set('postHots', $postHots);
     }
@@ -122,8 +154,8 @@ class PostsController extends AppController {
         if ($countComment) {
             $this->Post->set('comment_count', $countComment);
         }
-        $postNews = $this->Post->find('all', array('limit' => 10));
-        $postHots = $this->Post->find('all', array('order' => 'view', 'limit' => 10));
+        $postNews = $this->Post->find('all', array('order' => array('created' => 'desc'), 'limit' => 10));
+        $postHots = $this->Post->find('all', array(array('view' => 'desc'), 'limit' => 10));
         $this->Post->save();
         $this->set('post', $post);
         $this->set('postNews', $postNews);

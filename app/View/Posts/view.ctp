@@ -25,12 +25,12 @@
                             <?php echo $this->Facebook->like(); ?>
                             <?php echo $this->Facebook->share(Router::url( $this->here, true ));?>
                             <div class="clear"></div>
-                            <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px;">
+                            <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => ''));?>
                     <div class="wrapper">
                         <ul class="list extra extra1 media-list">
                         <?php foreach ($allPostGroup as $post) :?>
                             <div class="media">
-                                <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 20px; 'height:20px;">
+                            <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall1'));?>
                             <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></div>
                         <?php endforeach;?>
                         </ul>
@@ -56,7 +56,7 @@
                     <ul class="list extra extra1 media-list">
                     <?php foreach ($postNews as $post) :?>
                         <li class="media">
-                        <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 50px; 'height:50px;">
+                        <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                         <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                     <?php endforeach;?>
                     </ul>
@@ -65,7 +65,7 @@
                         <ul class="list extra extra1 media-list">
                         <?php foreach ($postHots as $post) :?>
                             <li class="media">
-                                <img src="<?php echo trim($post['Post']['image']);?>" alt="<?php echo $post['Post']['title']?>" style="margin-left: 0px; width: 50px; 'height:50px;">
+                                <?php echo $this->Html->image(trim($post['Post']['image']), array('class' => 'displayImageSmall'));?>
                             <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id']));?></li>
                         <?php endforeach;?>
                         </ul>
