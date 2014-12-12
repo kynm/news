@@ -58,17 +58,28 @@ class PostsController extends AppController {
     }
 
     public function index() {
+        $groups = Configure::read('groups');
         $order = array();
         $conditions = array();
         $order['Post.created'] = 'asc';
         $conditions['Post.post_status'] = 'publish';
         $this->Paginator->settings = array(
             'conditions' => $conditions,
-            'limit' => 30,
+            'limit' => 6,
             'order' => $order
         );
+        $allDataView = array();
+        foreach ($groups as $key => $value) {
+            $$key = $this->Post->find('all', array('conditions' => array('group' => $key), 'limit' => 6));
+            $allDataView[$key] = $$key;
+        }
+        $this->set('allDataView', $allDataView);
         $data = $this->Paginator->paginate('Post');
         $this->set('posts', $data);
+        $postNews = $this->Post->find('all', array('limit' => 10));
+        $postHots = $this->Post->find('all', array('order' => 'view', 'limit' => 10));
+        $this->set('postNews', $postNews);
+        $this->set('postHots', $postHots);
     }
     public function category($flag = 'none') {
         $order = array();
@@ -86,7 +97,7 @@ class PostsController extends AppController {
         //die(var_dump($conditions));
         $this->Paginator->settings = array(
             'conditions' => $conditions,
-            'limit' => 30,
+            'limit' => 12,
             'order' => $order
         );
         $data = $this->Paginator->paginate('Post');
