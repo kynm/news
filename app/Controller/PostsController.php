@@ -59,14 +59,23 @@ class PostsController extends AppController {
         if (!$post) {
             $this->redirect(array('action' => 'index'));
         }
-        $this->request->data = $post;
-        $this->set('post', $post);
         if ($this->request->is('post')) {
             $data = $this->request->data;
-            if ($data['Post']['image']['name']) {
-                $file = $this->request->data['Post']['image'];
-                move_uploaded_file($file['tmp_name'], $this->webroo. 'img/upload/post/' . $file['name']);
-                $this->request->data['Post']['image'] = $this->webroo. 'img/upload/post/' . $file['name']; 
+            if (isset($data['Post']['image']['name'])) {
+                $file = $this->request->data['Post']['image']; //put the data into a var for easy use
+                $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+                $arr_ext = array('jpg', 'jpeg', 'gif', 'png'); //set allowed extensions
+                //only process if the extension is valid
+                if(in_array($ext, $arr_ext)) {
+                    //do the actual uploading of the file. First arg is the tmp name, second arg is 
+                    //where we are putting it
+                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/upload/posts/' . $file['name']);
+
+                    //prepare the filename for database entry
+                    unset($this->request->data['Post']['image']);
+                    $this->request->data['Post']['image'] = '/img/upload/posts/' . $file['name'];
+
+                }
             } else {
                 $this->request->data['Post']['image'] = $post['Post']['image'];
             }
@@ -74,9 +83,11 @@ class PostsController extends AppController {
                 $this->Session->setFlash('Your post has been updated.');
                 $this->redirect(array('action' => 'index'));
             } else {
+                $this->set('errors', $this->Post->validationErrors);
                 $this->Session->setFlash('Unable to update your post.');
             }
         }
+        $this->request->data = $post;
     }
 
     public function delete($id) {

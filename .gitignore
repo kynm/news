@@ -3,7 +3,7 @@
 /app/Config/database.php
 /app/tmp
 /vendors
-/app/webroot/upoad
+/app/webroot/img/upload
 /build
 /dist
 /lib/Cake
