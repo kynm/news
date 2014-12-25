@@ -15,12 +15,12 @@ trong view add.ctp ta gọi:  <?php echo $this->Ck->input('field_name');?>
 
 # Responsive web design
 ## lý do
-- trong thời đại các thiết bị di động lên ngôi. việc hiển thị trang web cũng cần thích ứng tốt với nhiều loại màn hình khác nhau của các thiết bị di động. Việc ra đời của Responsive nhằm hiển thị trang web trên nhiều thiết bị di động khác nhua mà ko bị vỡ cấu trúc website mà ta mong muốn
+ * trong thời đại các thiết bị di động lên ngôi. việc hiển thị trang web cũng cần thích ứng tốt với nhiều loại màn hình khác nhau của các thiết bị di động. Việc ra đời của Responsive nhằm hiển thị trang web trên nhiều thiết bị di động khác nhua mà ko bị vỡ cấu trúc website mà ta mong muốn
 ## install trong cakephp 
-- responsive kế thừa và tương tự như responsive architecture, trang web khi được thiết kế phải có khả năng tự động điều chỉnh để thích nghi với nhiều nhóm người sử dụng khác nhau.
-- Cách thiết kế website Responsive:
+ * responsive kế thừa và tương tự như responsive architecture, trang web khi được thiết kế phải có khả năng tự động điều chỉnh để thích nghi với nhiều nhóm người sử dụng khác nhau.
+ * Cách thiết kế website Responsive:
 CSS-Media Queries:
-- sử dụng media queries để nhận biết các độ phân giải màn hình khách nhau nhằm load css cho trang web cho phù hợp với màn hình client.
+ * sử dụng media queries để nhận biết các độ phân giải màn hình khách nhau nhằm load css cho trang web cho phù hợp với màn hình client.
 //980px hoặc nhỏ hơn
 @media screen and (max-width: 980px) {
     #pagewrap {
