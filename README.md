@@ -23,6 +23,7 @@ trong view add.ctp ta gọi:  <?php echo $this->Ck->input('field_name');?>
 ## Cách thiết kế website Responsive:
 *CSS-Media Queries:
  * sử dụng media queries để nhận biết các độ phân giải màn hình khách nhau nhằm load css cho trang web cho phù hợp với màn hình client.
+ <pre>
 //980px hoặc nhỏ hơn
                 @media screen and (max-width: 980px) {
                     #pagewrap {
@@ -35,11 +36,10 @@ trong view add.ctp ta gọi:  <?php echo $this->Ck->input('field_name');?>
                         width: 30%;
                     }
                 }
+</pre>
+ * ta có thể sử dụng đồng thời nhiều thẻ @media screen để tạo ra css phù hợp với website cần hiển thị
 
-
-- ta có thể sử dụng đồng thời nhiều thẻ @media screen để tạo ra css phù hợp với website cần hiển thị
-
-- demo: haianhxinh.com
+## demo: haianhxinh.com
  * chức năng add post sử dụng ckediter
  * tổng thể trang web được thiết kế theo Responsive
 
