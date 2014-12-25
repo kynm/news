@@ -1,49 +1,43 @@
-# CakePHP
+# sử dụng ckediter
+## giới thiệu:
+CKEditor là một trình soạn thảo văn bản HTML.được thiết kế để đơn giản hóa việc tạo ra nội dung trang web. Đó là một trình soạn thảo WYSIWYG mang lại các tính năng xử lý văn bản phổ biến trực tiếp cho website.
 
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-[![Latest Stable Version](https://poser.pugx.org/cakephp/cakephp/v/stable.svg)](https://packagist.org/packages/cakephp/cakephp)
-[![License](https://poser.pugx.org/cakephp/cakephp/license.svg)](https://packagist.org/packages/cakephp/cakephp)
+## install trong cakephp 
+-- download source tại: http://ckeditor.com/download
+copy source vào thư mục js trong webroot
+## install trong cakephp 
+-- khi sử dụng ckediter ta cần khai báo load js của nó trong layout tương ứng
+vd bạn sử dụng bài viết trong việc add post của blog. trang add đang sử dụng layout post.ctp.
+ta khai báo trong layout post.ctp như sau:
+echo $this->Html->script('ckeditor/ckeditor.js');
+## sử dụng:
+trong view add.ctp ta gọi:  <?php echo $this->Ck->input('field_name');?>
 
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-
-
-## Some Handy Links
-
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
-
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
-
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
-
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
-
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
-
-[Community Center](http://community.cakephp.org) - A source for everything community related
-
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
-
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-
-## Get Support!
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
+# Responsive web design
+## lý do
+ - trong thời đại các thiết bị di động lên ngôi. việc hiển thị trang web cũng cần thích ứng tốt với nhiều loại màn hình khác nhau của các thiết bị di động. Việc ra đời của Responsive nhằm hiển thị trang web trên nhiều thiết bị di động khác nhua mà ko bị vỡ cấu trúc website mà ta mong muốn.
+ ##Khái niệm
+--responsive kế thừa và tương tự như responsive architecture, trang web khi được thiết kế phải có khả năng tự động điều chỉnh để thích nghi với nhiều nhóm người sử dụng khác nhau.
+-- Cách thiết kế website Responsive:
+CSS-Media Queries:
+sử dụng media queries để nhận biết các độ phân giải màn hình khách nhau nhằm load css cho trang web cho phù hợp với màn hình client
+/* 980px hoặc nhỏ hơn */
+@media screen and (max-width: 980px) {
+    #pagewrap {
+        width: 94%;
+    }
+    #content {
+        width: 65%;
+    }
+    #sidebar {
+        width: 30%;
+    }
+}
 
 
-## Contributing
+ta có thể sử dụng đồng thời nhiều thẻ @media screen để tạo ra css phù hợp với website cần hiển thị
 
-[CONTRIBUTING.md](CONTRIBUTING.md) - Quick pointers for contributing to the CakePHP project
+demo: haianhxinh.com
+-- chức năng add post sử dụng ckediter
+-- tổng thể trang web được thiết kế theo Responsive
 
-[CookBook "Contributing" Section (2.x)](http://book.cakephp.org/2.0/en/contributing.html) [(3.0)](http://book.cakephp.org/3.0/en/contributing.html) - Version-specific details about contributing to the project
